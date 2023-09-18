@@ -1,4 +1,4 @@
-# -Dip-Micro-Chip-Project
+# µDip-Micro-Chip-Project
  Dip-Micro Chip Project for CS 4306
 Software Engineering (CS 4306)
 
