@@ -4,7 +4,7 @@
 # Project Title
 ### Prototyping of applications requiring CAN/CAN-FD on dsPIC33C Digital Signal Controller (DSC)
 
-# Team name: μdip [micro-dip]    ![image](https://github.com/LightTheBlues/uDip-Micro-Chip-Project/assets/144945400/2b4ad70e-94d5-4783-bb23-4daa8add8561)
+# Team name: μdip [micro-dip] 
 ### Team members: Andrew DiFranco, Bryan Marquez, SeungJun Ryu, Yeongwoong Choi, Zhi Yong Li
 
 # Project client and contact information
