@@ -18,7 +18,7 @@
 # Short description of the project
 Control area network (CAN) protocols facilitate the transmission of serial data between multiple nodes. Using CAN, data aggregated in a central processing unit can be transmitted elsewhere. 
 
-In this project, using firmware that is adapted from the dsPIC33EV 5V CAN-LIN STARTER KIT, CAN communication will be implemented into the dsPIC33C Touch-CAN-LIN curiosity development board. Using CAN, the data from various nodes will be taken as input at the dsPIC33C Touch-CAN-LIN curiosity development board and outputted through the native CAN connector on the board. We will be showcasing CAN communication between a vehicle’s nodes by writing and reading serially encoded messages using the digital signal processor (dsPIC33C) via the Curiosity Board provided by MicroChip.
+In this project, using firmware that is adapted from the dsPIC33EV 5V CAN-LIN STARTER KIT, CAN communication will be implemented into the dsPIC33C Touch-CAN-LIN curiosity development board. Using CAN, the data from various nodes will be taken as input at the dsPIC33C Touch-CAN-LIN curiosity development board and output through the native CAN connector on the board. We will be showcasing CAN communication between a vehicle’s nodes by writing and reading serially encoded messages using the digital signal processor (dsPIC33C) via the Curiosity Board provided by MicroChip.
 
 ***
 
