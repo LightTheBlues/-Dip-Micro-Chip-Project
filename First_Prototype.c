@@ -1,3 +1,6 @@
+// DISCLAIMER:
+// Code is not actually executable without the starter kit
+
 // Function Prototypes
 void oscConfig(void);
 void clearIntrflags(void);
