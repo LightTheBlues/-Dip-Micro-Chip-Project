@@ -1,5 +1,5 @@
 // DISCLAIMER:
-// Code is not actually executable without the starter kit
+// Code is not actually executable without the starter kit or curiosity board
 
 // Function Prototypes
 void oscConfig(void);
