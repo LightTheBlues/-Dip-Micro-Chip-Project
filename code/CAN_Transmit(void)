@@ -1,0 +1,36 @@
+void CAN_Transmit(void)
+{
+    ecan1MsgBuf[0][0] = MSG_SID << 2;
+
+    ecan1MsgBuf[0][1] = 0x0000;
+    /* CiTRBnDLC = 0b0000 0000 xxx0 1111
+    EID<17:6> = 0b000000
+    RTR = 0b0
+    RB1 = 0b0
+    RB0 = 0b0
+    DLC = 6 /
+    ecan1MsgBuf[0][2] = 0x0006;
+
+    // Write message 6 data bytes as follows:
+    //
+    // POTH POTL TEMPH TEMPL 0000 S3S2S1
+    //
+    ecan1MsgBuf[0][3] = (~SW1 & 1) | ((~SW2 & 1) << 1) | ((~SW3 & 1) << 2); // switch data, leading zeros
+    ecan1MsgBuf[0][4] = TempValue;
+    ecan1MsgBuf[0][5] = PotValue;
+
+    Nop();
+    Nop();
+    Nop();
+    / Request message buffer 0 transmission /
+
+    C1TXREQLbits.TXREQ0 = 0x1; //C1TR01CONbits.TXREQ0 = 0x1;
+
+    / The following shows an example of how the TXREQ bit can be polled to check if transmission
+    is complete. */
+    Nop();
+    Nop();
+    Nop();
+    while (C1TXREQLbits.TXREQ0 == 1);   //while (C1TR01CONbits.TXREQ0 == 1);
+    // Message was placed successfully on the bus, return
+}
