@@ -1,0 +1,13 @@
+void clearIntrflags(void)
+{
+    /* Clear Interrupt Flags */
+
+    IFS0 = 0;
+    IFS1 = 0;
+    IFS2 = 0;
+    IFS3 = 0;
+    IFS4 = 0;
+    //we dont need it
+    //IPC16bits.U1EIP = 6;        //service the LIN framing error before the RX
+    //IPC2bits.U1RXIP = 4;
+}
