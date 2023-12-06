@@ -1,0 +1,129 @@
+void Can_RX_to_UART(void)
+{
+    // CAN message out the monitor UART
+    //
+    tagU2MODEBITS.UTXEN = 1;
+    putsU2("*** REMOTE CAN MESSAGE ID = 0x");
+   //
+    // display remote ID byte
+    //
+    hex_dig = (char)((canRxMessage.id & 0xff00) >> 8);   // upper byte
+    ascii_hi = hex_dig & 0xF0;                  // Obtain the upper 4 bits (MSBs) of hex number
+    ascii_hi = (ascii_hi >> 4) + 0x30;          // ASCII conversion
+    ascii_lo = (hex_dig & 0x0F) + 0x30;         // Obtain the lower 4 bits (LSBs) of hex number
+
+    putU2(ascii_hi);
+    putU2(ascii_lo);                    // send out the upper ID byte as ASCII
+
+    hex_dig = (char)(canRxMessage.id & 0x00ff); // lower byte
+    ascii_hi = hex_dig & 0xF0;                  // Obtain the upper 4 bits (MSBs) of hex number
+    ascii_hi = (ascii_hi >> 4) + 0x30;          // ASCII conversion
+    ascii_lo = (hex_dig & 0x0F) + 0x30;         // Obtain the lower 4 bits (LSBs) of hex number
+
+    putU2(ascii_hi);
+    putU2(ascii_lo);                    // send out the lower ID byte as ASCII
+
+    putsU2(" RECEIVED ***");
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+    putsU2("Remote Pot Voltage: ");
+
+    PotValue = ((canRxMessage.data[4]) | (canRxMessage.data[5] << 8));
+    Pot_Volts = (float)(PotValue * (float)5.0 / (float)4096.0);
+    //
+    // convert to ASCII
+    //
+    pBuf = Buf_result;
+    ftoa(Pot_Volts, pBuf);
+    for (i = 0; i <= (NUM_DIGITS - 1); i++)
+    {
+        while (U2STAbits.TRMT == 0);
+        U2TXREG = Buf_result[i];
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    putsU2("Remote Temperature: ");
+
+    //
+    //  print the temperature reading out the UART
+    //
+    datal = ((canRxMessage.data[2]) | (canRxMessage.data[3] << 8));
+    Pot_Volts = (float)((datal - 368) / 15.974);
+    //
+    // convert to ASCII
+    //
+    pBuf = Buf_result;
+    ftoa(Pot_Volts, pBuf);
+    for (i = 0; i <= (NUM_DIGITS - 1); i++)
+    {
+        while (tagU2STABITS.TRMT == 0);
+        U2TXREG = Buf_result[i];
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    putsU2("Remote Switch Status");
+
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+    // ON = pressed  OFF = up
+    if ((canRxMessage.data[0] & 0x4) == 0)
+    {
+        putsU2("SW3: OFF ");
+    }
+    else
+    {
+        putsU2("SW3: ON");
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    // ON = pressed  OFF = up
+    if ((canRxMessage.data[0] & 0x2) == 0)
+    {
+        putsU2("SW2: OFF ");
+    }
+    else
+    {
+        putsU2("SW2: ON");
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    // ON = pressed  OFF = up
+    if ((canRxMessage.data[0] & 0x1) == 0)
+    {
+        putsU2("SW1: OFF ");
+    }
+    else
+    {
+        putsU2("SW1: ON");
+    }
+
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+    //
+    // toggle LED 1 to show CAN message reveived
+    //
+    LED1 = 1;
+    //
+    // wait 100ms, turn off LED1
+    //
+    delay_10ms(10);
+    LED1 = 0;
+}
