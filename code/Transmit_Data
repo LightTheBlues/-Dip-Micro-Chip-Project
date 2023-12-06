@@ -1,0 +1,131 @@
+void Transmit_Data(void)
+{
+    //
+    // The LEDs reflect the switch status
+    //
+    LED1 = ~SW1;
+    LED2 = ~SW2;
+    LED3 = ~SW3;
+
+    //
+    // read the pot value and save it
+    //
+    ADCConvert(19);
+    PotValue = AverageValue;
+    Delayus(100);
+    Pot_Volts = (float)(PotValue * (float)5.0 / (float)4096.0);
+    //
+    // convert to ASCII
+    //
+    pBuf = Buf_result;
+    ftoa(Pot_Volts, pBuf);
+
+    tagU2MODEBITS.UTXEN = 1; //tagU2MODEBITS.URXEN = 1;
+    putsU2("***TRANSMITTING ON-BOARD SENSOR VALUES***");
+    while (tagU2STABITS.TRMT == 0);//while (tagU2MODEBITS.TRMT == 0);
+    U2TXREG = 0x0a; //check this
+     while (tagU2STABITS.TRMT == 0);//while (tagU2MODEBITS.TRMT == 0);
+    U2TXREG = 0x0d; //check this
+
+    putsU2("Local Pot Voltage: Reading = ");
+
+    for (i = 0; i <= (NUM_DIGITS - 1); i++)
+    {
+        while (tagU2STABITS.TRMT == 0);
+        U2TXREG = Buf_result[i]; //check this
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    //
+    // read temperature sensor and save it
+    //
+    ADCConvert(18);
+    TempValue = AverageValue;
+    Delayus(100);
+
+    //
+    // test print the temperature reading out the UART
+    //
+    Pot_Volts = (float)((TempValue - 368) / 15.974);
+    //
+    // convert to ASCII
+    //
+    pBuf = Buf_result;
+    ftoa(Pot_Volts, pBuf);
+
+    tagU2MODEBITS.UTXEN = 1;
+
+    putsU2("Local Temperature: Reading = ");
+
+    for (i = 0; i <= (NUM_DIGITS - 1); i++)
+    {
+        while (tagU2STABITS.TRMT == 0);
+        U2TXREG = Buf_result[i];
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+    //
+    // test print the 3 switch statuses
+    //
+
+    putsU2("Local Switch status");
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+    // ON = pressed  OFF = up
+    if (SW1)
+    {
+        putsU2("SW1: OFF ");
+    }
+    else
+    {
+        putsU2("SW1: ON");
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    // ON = pressed  OFF = up
+    if (SW2)
+    {
+        putsU2("SW2: OFF ");
+    }
+    else
+    {
+        putsU2("SW2: ON");
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+
+    // ON = pressed  OFF = up
+    if (SW3)
+    {
+        putsU2("SW3: OFF ");
+    }
+    else
+    {
+        putsU2("SW3: ON");
+    }
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0a;
+    while (tagU2STABITS.TRMT == 0);
+    U2TXREG = 0x0d;
+    // format and send out the CAN port
+    //
+    // In order for the demo to run, the CAN controller needs an ACK signal
+    // If you desire to run the demo for SENT/LIN only, then comment out the
+    // following line of code and recompile
+    
+    CAN_Transmit();     // Transmit CAN. COMMENT OUT FOR LIN/SENT ONLY!!
+    Delayus(5000);
+
+}
