@@ -1,0 +1,22 @@
+void oscConfig(void)
+{
+
+    //  Configure Oscillator to operate the device at 80MHz/40MIPs
+    // 	Fosc= Fin*M/(N1*N2), Fcy=Fosc/2
+    // 	Fosc= 8M*40/(2*2)=80Mhz for 8M input clock
+    // To be safe, always load divisors before feedback
+    
+    
+    //example 9-3
+    tagCLKDIVBITS.PLLPRE = 0;      // N1=2z
+    PLLDIVbits.POST1DIV = 5; // N2=5
+
+    
+    PLLFBDbits.PLLFBDIV = 38;//PLLFBD = 38;                // M=(40-2), Fcyc = 40MHz for ECAN baud timer
+
+
+    // Disable Watch Dog Timer
+    //we already disable it
+   // RCONbits.SWDTEN = 0;
+
+}
