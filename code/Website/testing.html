@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read CAN Bus Data</title>
+    <style>
+        #menu-toggle {
+            display: none;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        #menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        #menu a {
+            display: block;
+            color: #fff;
+            padding: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #282c34;
+            color: #61dafb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 100%;
+            flex-direction: column;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #2d2d2d;
+            color: #61dafb;
+        }
+        button {
+            background-color: #61dafb;
+            color: #282c34;
+            border: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+#outputContainer {
+            flex: 1;
+            color: white; /* Set text color to white */
+            height: 300px; /* Set a fixed height */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding: 10px; /* Add padding for better appearance */
+        }
+
+        p {
+            color: white;
+            margin: 0;
+            padding: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h1 style="text-align: center;">CAN Bus Data Stream</h1>
+            <div class="menu-icon" onclick="toggleMenu()">&#9776; Menu</div>
+        <input type="checkbox" id="menu-toggle">
+        <div id="menu">
+            <a href="micro.php">Home</a>
+            <a href="start_now.php">Start Now</a>
+        </div>
+    <div id="outputContainer">
+        <!-- Output will be displayed here -->
+    </div>
+
+    <button onclick="startReading()">Start</button>
+    <button onclick="pauseReading()">Pause</button>
+    <button onclick="continueReading()">Continue</button>
+    <button onclick="refreshPage()">Refresh</button>
+</div>
+
+<footer>
+    <p>© 2023 Andrew, Bryan, Jun, Leo, Yeong</p>
+</footer>
+
+<script>
+    var isReading = false;
+    var currentIndex = 0;
+    var lines = [];
+
+    function startReading() {
+        isReading = true;
+        currentIndex = 0;
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                lines = xhr.responseText.split('\n');
+                outputLine();
+            }
+        };
+
+        xhr.open("GET", "start_now.php", true);
+        xhr.send();
+    }
+
+    function outputLine() {
+        if (isReading && currentIndex < lines.length) {
+            document.getElementById("outputContainer").innerHTML += '<p>' + lines[currentIndex] + '</p>';
+            currentIndex++;
+            outputContainer.scrollTop = outputContainer.scrollHeight;
+            setTimeout(outputLine, 2000); // Adjust the delay as needed
+        }
+    }
+
+    function pauseReading() {
+        isReading = false;
+    }
+
+    function continueReading() {
+        if (!isReading) {
+            isReading = true;
+            outputLine();
+        }
+    }
+
+    function refreshPage() {
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+    </script>
