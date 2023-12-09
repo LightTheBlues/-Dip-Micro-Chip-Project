@@ -13,9 +13,9 @@
 ***
 
 # Short description of the project
-Control area network (CAN) protocols facilitate the transmission of serial data between multiple nodes. Using CAN, data aggregated in a central processing unit can be transmitted elsewhere. 
+CAN (control area network) is a communication protocol that is used to handle the transmission of data between multiple nodes that all share a common bus. Each node has equal access to the bus and can transmit messages asynchronously whenever they have data that may be important elsewhere. This transmission is done in a broadcast manner, which means that all other nodes connected to the bus will receive the message. The broadcast method of communication creates reduced overhead in communication when compared to other communication protocols that use point-to-point communication, and also is more efficient in scenarios where the data needs to be received by multiple nodes. 
 
-In this project, using firmware that is adapted from the dsPIC33EV 5V CAN-LIN STARTER KIT, CAN communication will be implemented into the dsPIC33C Touch-CAN-LIN curiosity development board. Using CAN, the data from various nodes will be taken as input at the dsPIC33C Touch-CAN-LIN curiosity development board and output through the native CAN connector on the board. We will be showcasing CAN communication between a vehicle’s nodes by writing and reading serially encoded messages using the digital signal processor (dsPIC33C) via the Curiosity Board provided by MicroChip.
+In this project, a demonstration of the CAN protocol will be shown by creating the firmware for the dsPIC33C Touch-CAN-LIN curiosity development board, which houses the dsPIC33CK1024MP710 digital signal controller. The demonstration will involve a common bus which connects the curiousity board with another board known as the dsPIC33EV 5V CAN-LIN STARTER KIT. To show messages being send in real time, a CAN analyzer developed by Microchip will also be present on the bus, allowing for messages to be displayed on an external computer. 
 
 ***
 
