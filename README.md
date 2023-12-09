@@ -21,19 +21,12 @@ In this project, a demonstration of the CAN protocol will be shown by creating t
 
 # List of functions the software will provide
 
-# Disclaimer
-The specific functions within the starter kit and curiosity board have not been demonstrated for us. The list below provides the general framework for which we wish to implement executables. Everything below is subject to change as we learn more about the board’s capabilities/ specific functions.
-Modify firmware on the Starter kit for the DSC to be implemented on the Curiosity Development Board Demo source code will be provided for the dsPIC33EV board. We will learn from this and implement our own demo firmware onto the Curiosity Development board.
+### Message transmission & reception between both nodes 
 
-### Engine Information (node 1)
-Collect information from nodes reading/ writing engine diagnostic information into the network.
+### Handling of message arbitration 
 
-### Wheel/ tire info (node 2)
-Collect information from nodes reading/ writing wheel diagnostic information into the network.
+### Handling of errors in cases where messages are transmitted incorrectly 
 
-
-### Climate settings (node 3)
-Collect information from nodes reading/ writing climate diagnostic information into the network.
-Testing pre-existing button firmware on the DSC Ensure the firmware already baked into the Curiosity Development board works and can implemented to execute/ manipulate CAN functions.
+### User interaction with both boards to alter how messages are transmitted
 
 ***
