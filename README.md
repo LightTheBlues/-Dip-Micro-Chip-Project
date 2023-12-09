@@ -20,9 +20,17 @@ In this project, a demonstration of the CAN protocol will be shown by creating t
 
 ### Message transmission & reception between both nodes 
 
+Both nodes will be able to share the bus and transmit messages between one another. 
+
 ### Handling of message arbitration 
+
+In cases where both nodes attempt to transmit a message at the same time, the message with the lower ID will take over the bus and be displayed on the external computer first. 
 
 ### Handling of errors in cases where messages are transmitted incorrectly 
 
+Each board will be able to detect when a message on the bus as been corrupted upon transmission. The communication will not cease when errors occur.
+
 ### User interaction with both boards to alter how messages are transmitted
+
+The peripherals present on both boards will allow user interaction to change how messages are displayed on the external computer. Interactable peripherals include switches, temperature sensors, potentiometers, LEDs, and touch pads.
 
