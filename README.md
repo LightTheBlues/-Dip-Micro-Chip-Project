@@ -2,6 +2,7 @@
 # Software Engineering (CS 4306) - Prototyping of applications requiring CAN/CAN-FD on dsPIC33C Digital Signal Controller (DSC)
 
 Team name: μdip [micro-dip] 
+
 Team members: Andrew DiFranco, Bryan Marquez, SeungJun Ryu, Yeongwoong Choi, Zhi Yong Li
 
 ## Project client and contact information
