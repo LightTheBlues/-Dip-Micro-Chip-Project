@@ -5,10 +5,10 @@
 Team members: Andrew DiFranco, Bryan Marquez, SeungJun Ryu, Yeongwoong Choi, Zhi Yong Li
 
 ## Project client and contact information
- - Microchip, pr@microchip.com (public), academic@microchip.com (academic)
+Microchip, pr@microchip.com (public), academic@microchip.com (academic)
 
 ## Communication medium (slack, github project, etc.)
- - Discord channel, Google docs, github, email (with client)
+Discord channel, Google docs, github, email (with client)
 
 # Short description of the project
 CAN (control area network) is a communication protocol that is used to handle the transmission of data between multiple nodes that all share a common bus. Each node has equal access to the bus and can transmit messages asynchronously whenever they have data that may be important elsewhere. This transmission is done in a broadcast manner, which means that all other nodes connected to the bus will receive the message. The broadcast method of communication creates reduced overhead in communication when compared to other communication protocols that use point-to-point communication, and also is more efficient in scenarios where the data needs to be received by multiple nodes. CAN also contains methods of handling errors within messages and nodes that may not be functioning properly. As a result of the efficent nature of CAN, it is present in many automotive applications. 
