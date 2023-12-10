@@ -1,0 +1,115 @@
+void init_CAN()
+{
+    // ------------------
+    // Standby pin set to low
+    // ------------------
+    
+    _TRISD15 = 0; // Set as an output 
+    _LATD15 = 0; // Set to low (CAN module not in standby)
+    
+    // ------------------
+    // Configure TX and RX to input and outputs
+    // ------------------
+    
+    // Configure CANTX for output
+    _TRISC15 = 0;
+    
+    // Configure CANRX for input
+    _TRISC14 = 1;
+    
+    // ------------------
+    // Remap CAN module pins
+    // ------------------
+    
+    RPINR26bits.CAN1RXR = 62; // Remap CANRX to RP62
+    
+    RPOR15bits.RP63R = 21; // Remap CANTX to RP63
+    
+    // ------------------
+    // Set the CAN module into configuration mode
+    // ------------------
+    
+    // Request operation mode 
+    C1CONHbits.REQOP = 4; // Sets to configuration 
+    
+    // Check the operation mode status
+    while (C1CONHbits.OPMOD != 4); // The program should stop here until the mode changes to configuration mode
+    
+    // WIN registers can be added later
+    
+    // ------------------
+    // Configure the CAN module & timing WIP
+    // ------------------
+    
+    //C1CONLbits.CON = 1; // Enable the CAN module 
+    //DMACONbits.DMAEN = 1; // Enable the DMA module
+    
+    /*    
+    C1CFG1 = 0x47;          // BRP = 8 SJW = 2 Tq
+    C1CFG2 = 0x2D2;
+    C1FCTRL = 0xC01F;       // No FIFO, 32 Buffers [Still needs to be found]
+    */
+    
+    C1DBTCFGHbits.BRP = 7; // TQ = 8/FSYS
+    C1DBTCFGLbits.SJW = 1; // Length is 2 x TQ
+    
+    DMACH0bits.SIZE = 0; // Data size is word (16-bit)
+    DMACH0bits.DAMODE = 3; // DMADSTn is used in Peripheral Indirect Addressing and remains unchanged
+    
+    // DMA0REQ.IRQSEL missing (it sets DMA0)
+    
+    // Set DMA channel 0 to 8 DMA transfers
+    DMACNT0 = 7; // DMA Transaction Counter bits set to 8 (I think; try alternating between 7 and 8)
+    
+    // DMA0PAD = (volatile unsigned int)&C1TXD; sets DMA channel 0 peripheral address to TX data request CAN1
+    DMADST0 = 53; // Set DMA Data Destination Address Pointer bits to CAN1 data request
+    
+    // Configuration still in progress...
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // ------------------
+    // Set the CAN module into normal mode
+    // ------------------
+    
+    C1CONHbits.REQOP = 0;
+    while (C1CONHbits.OPMOD != 0);
+    
+    // ------------------
+    // CAN RX interrupt enable - 'double arm' since 2-level nested interrupt
+    // ------------------
+    
+    /*
+    C1INTEbits.RBIE = 1; // RX Buffer Interrupt Enable bit
+    IEC2bits.C1IE = 1; // ????
+    */
+    
+    IEC1bits.C1RXIE = 1; // Interrupt enabled
+    IEC2bits.C2IE = 1; // Combined error interrupt enable bit
+}
