@@ -1,0 +1,51 @@
+void init_HW()
+{
+    // Set all LEDS to output
+    _TRISD1 = 0; //Blue
+    _TRISB10 = 0; // Green
+    _TRISB12 = 0; // Red
+    
+    _TRISE8 = 0; // LED10
+    _TRISE7 = 0; // LED8
+    _TRISE6 = 0; // LED6
+    _TRISE9 = 0; // LED11
+    _TRISF11 = 0; // LED12
+    
+    // Set all switches to inputs 
+    _TRISD13 = 1; // SW1 
+    _TRISF3 = 1; // SW2
+    _TRISF4 = 1; // SW3
+    
+    // Set potentiometer to input
+    _TRISA0 = 1;
+    
+    // SW3 needs to be manually set to digital
+    ANSELDbits.ANSELD13 = 0;
+    
+    // Set potentiometer to analog
+    _ANSELA0 = 0;
+    
+    //
+    // Timer 1 to generate an interrupt every 250ms
+    //
+    T1CONbits.TON = 0;          // Disable Timer1
+    T1CONbits.TCS = 0;          // Select internal instruction cycle clock
+    T1CONbits.TGATE = 0;        // Disable Gated Timer mode
+    T1CONbits.TCKPS = 0x3;      // Select 1:256 Prescaler
+    PR1 = 39062;                // Load the period value (250ms/(256*25ns))
+    IPC0bits.T1IP = 0x03;       // Set Timer 1 Interrupt Priority Level
+    IFS0bits.T1IF = 0;          // Clear Timer 1 Interrupt Flag
+    IEC0bits.T1IE = 1;          // Enable Timer1 interrupt
+    
+    //
+    // Timer 1 to generate an interrupt every 250ms
+    //
+    T1CONbits.TON = 0;          // Disable Timer1
+    T1CONbits.TCS = 0;          // Select internal instruction cycle clock
+    T1CONbits.TGATE = 0;        // Disable Gated Timer mode
+    T1CONbits.TCKPS = 0x3;      // Select 1:256 Prescaler
+    PR1 = 39062;                // Load the period value (250ms/(256*25ns))
+    IPC0bits.T1IP = 0x03;       // Set Timer 1 Interrupt Priority Level
+    IFS0bits.T1IF = 0;          // Clear Timer 1 Interrupt Flag
+    IEC0bits.T1IE = 1;          // Enable Timer1 interrupt
+}
