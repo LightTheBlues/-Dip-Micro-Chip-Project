@@ -1,0 +1,28 @@
+void InitMonitor(void)
+{
+    // digital output
+    TRIS_MON = 0;
+
+    //
+    // map MONITOR_TX pin to port RB4, which is remappable RP36
+    //
+    //RPOR1bits.RP36R = 0x03; // map UART2 TXD to pin RB4
+    RPOR2bits.RP36R = 0x03;
+    //
+    // set up the UART for default baud, 1 start, 1 stop, no parity
+    //
+    //U2MODEbits.STSEL = 0;       // 1-Stop bit
+    U2MODEHbits.STSEL = 0;
+    //U2MODEbits.PDSEL = 0;       // No Parity, 8-Data bits
+    U1STAbits.PERR = 0;
+    U2MODEbits.ABAUD = 0;       // Auto-Baud disabled
+    U2MODEbits.BRGH = 0;        // Standard-Speed mode
+    U2BRG = BAUD38400;          // Baud Rate setting for 38400 (default)
+    //U2STAbits.UTXISEL0 = 0;     // Interrupt after TX buffer done
+    tagU2STAHBITS.UTXISEL0 = 0;
+    //U2STAbits.UTXISEL1 = 1;
+    tagU2STAHBITS.UTXISEL1 = 1;
+    IEC1bits.U2TXIE = 1;        // Enable UART TX interrupt
+    U2MODEbits.UARTEN = 1;      // Enable UART (this bit must be set *BEFORE* UTXEN)
+
+}
