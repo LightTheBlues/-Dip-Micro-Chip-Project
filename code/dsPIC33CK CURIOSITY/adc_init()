@@ -1,0 +1,18 @@
+void adc_init()
+{
+    ANSELAbits.ANSELA4 = 1;             // port pin RA4
+    ADCON1L = 0;
+    ADCON3Hbits.CLKSEL = 0;             // use peripheral clock
+    ADCON3Hbits.CLKDIV = 0;             // 1:1
+    ADCON2Lbits.SHRADCS = 0;            // no prescalar, we have 8MHz clock ==> 4MHz peripheral clk
+    ADCON3Lbits.REFSEL = 0;             // AVDD as ref
+    ADCON1Hbits.SHRRES = 0b10;          // 10 bit
+    ADCON1Hbits.FORM = 0;               // integer form
+    ADCON2Hbits.SHRSAMC = 30;           // 32 * tADCORE
+    ADCON5Lbits.SHRPWR = 1;             // power on ADC
+    ADCON3Hbits.SHREN = 1;
+    ADCON5Hbits.WARMTIME = 0b1111;
+    ADCON1Lbits.ADON = 1;
+    // wait for ADC to be ready
+    while (ADCON5Lbits.SHRRDY == 0);
+}
