@@ -1,0 +1,6 @@
+void putU2(int c)
+{
+    //while (U2STAbits.UTXBF); // wait while Tx buffer full
+    while(tagU2STAHBITS.URXBF);
+    U2TXREG = c;
+}
