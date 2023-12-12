@@ -150,35 +150,18 @@ void init_CAN()
     DMACH0bits.CHEN = 1; // Enable DMA channel 0
     
     DMACH2bits.DAMODE = 3; // DMADSTn is used in Peripheral Indirect Addressing and remains unchanged
+    /* setup the address of the peripheral ECAN1 (C1RXD)
+	DMA2PAD = (volatile unsigned int)&C1RXD;*/
+    /*DMADST2 = ?*/
     
-    DMADST2 = 
+ 	/* Set the data block transfer size of 8 
+ 	DMA2CNT = 7;*/
+    DMACNT2 = 7; // Sets the DMA transaction counter size to 8
     
+    DMACH2bits.CHEN = 1; // Enable DMA channel 2
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    C1TXQCONLbits.TXEN = 1; // Enable TX
+   
     // ------------------
     // Set the CAN module into normal mode
     // ------------------
@@ -210,148 +193,13 @@ void oscConfig(void)
     
     CLKDIVbits.PLLPRE = 0; // N1=2
     PLLDIVbits.POST1DIV = 0; // N2=5
-    PLLFBDbits.PLLFBDIV = 38; //PLLFBD = 38; // M=(40-2), Fcyc = 40MHz for ECAN baud timer
-
+    PLLFBDbits.PLLFBDIV = 38; //PLLFBD = 38; // M=(40-2), Fcyc = 40MHz for ECAN baud timer1
 
    // Disable Watch Dog Timer
    // we already disable it
    // RCONbits.SWDTEN = 0;
 
 }
-
-/*
-void Transmit_Data(void)
-{
-    //
-    // The LEDs reflect the switch status
-    //
-    LED1 = ~SW1;
-    LED2 = ~SW2;
-    LED3 = ~SW3;
-
-    //
-    // read the pot value and save it
-    //
-    ADCConvert(19);
-    PotValue = AverageValue;
-    Delayus(100);
-    Pot_Volts = (float)(PotValue * (float)5.0 / (float)4096.0);
-    //
-    // convert to ASCII
-    //
-    pBuf = Buf_result;
-    ftoa(Pot_Volts, pBuf);
-
-    tagU2MODEBITS.UTXEN = 1; //tagU2MODEBITS.URXEN = 1;
-    putsU2("***TRANSMITTING ON-BOARD SENSOR VALUES***");
-    while (tagU2STABITS.TRMT == 0);//while (tagU2MODEBITS.TRMT == 0);
-    U2TXREG = 0x0a; //check this
-     while (tagU2STABITS.TRMT == 0);//while (tagU2MODEBITS.TRMT == 0);
-    U2TXREG = 0x0d; //check this
-
-    putsU2("Local Pot Voltage: Reading = ");
-
-    for (i = 0; i <= (NUM_DIGITS - 1); i++)
-    {
-        while (tagU2STABITS.TRMT == 0);
-        U2TXREG = Buf_result[i]; //check this
-    }
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0a;
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0d;
-
-    //
-    // read temperature sensor and save it
-    //
-    ADCConvert(18);
-    TempValue = AverageValue;
-    Delayus(100);
-
-    //
-    // test print the temperature reading out the UART
-    //
-    Pot_Volts = (float)((TempValue - 368) / 15.974);
-    //
-    // convert to ASCII
-    //
-    pBuf = Buf_result;
-    ftoa(Pot_Volts, pBuf);
-
-    tagU2MODEBITS.UTXEN = 1;
-
-    putsU2("Local Temperature: Reading = ");
-
-    for (i = 0; i <= (NUM_DIGITS - 1); i++)
-    {
-        while (tagU2STABITS.TRMT == 0);
-        U2TXREG = Buf_result[i];
-    }
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0a;
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0d;
-    //
-    // test print the 3 switch statuses
-    //
-
-    putsU2("Local Switch status");
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0a;
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0d;
-    // ON = pressed  OFF = up
-    if (SW1)
-    {
-        putsU2("SW1: OFF ");
-    }
-    else
-    {
-        putsU2("SW1: ON");
-    }
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0a;
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0d;
-
-    // ON = pressed  OFF = up
-    if (SW2)
-    {
-        putsU2("SW2: OFF ");
-    }
-    else
-    {
-        putsU2("SW2: ON");
-    }
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0a;
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0d;
-
-    // ON = pressed  OFF = up
-    if (SW3)
-    {
-        putsU2("SW3: OFF ");
-    }
-    else
-    {
-        putsU2("SW3: ON");
-    }
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0a;
-    while (tagU2STABITS.TRMT == 0);
-    U2TXREG = 0x0d;
-    // format and send out the CAN port
-    //
-    // In order for the demo to run, the CAN controller needs an ACK signal
-    // If you desire to run the demo for SENT/LIN only, then comment out the
-    // following line of code and recompile
-    
-    CAN_Transmit();     // Transmit CAN. COMMENT OUT FOR LIN/SENT ONLY!!
-    Delayus(5000);
-
-}
-*/
 
 void init_HW()
 {
