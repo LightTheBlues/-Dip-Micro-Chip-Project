@@ -1,0 +1,13 @@
+uint16_t adc_get_val()
+{
+    volatile uint16_t adc_result;
+ 
+    // select channel
+    ADCON3Lbits.CNVCHSEL = 4;
+    // initiate a manual conversion
+    ADCON3Lbits.CNVRTCH = 1;
+    // Wait until conversion is done
+    while ((ADSTATL & (1 << 4)) == 0);
+    adc_result = ADCBUF4;
+    return adc_result;
+}
