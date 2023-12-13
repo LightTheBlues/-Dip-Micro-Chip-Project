@@ -1,0 +1,3 @@
+The code included in this folder was modified, not written, by Leo (Zhi) and Bryan. The code was written by 
+Microchip but was altered in order to demonstrate CAN communication for this project. Most/all code related 
+to SENT or LIN communication was removed, leaving only code relevant to CAN. 
