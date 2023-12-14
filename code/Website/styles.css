@@ -1,6 +1,22 @@
 #menu-toggle {
     display: none;
 }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 500px;
+}
+.techy-button {
+    background-color: #00bcd4;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
 
 .menu-icon {
     cursor: pointer;
@@ -20,6 +36,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
+
 }
 
 #menu a {
@@ -37,54 +54,78 @@ body {
     color: #ffffff;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
 
 header {
     background-color: #333;
     padding: 20px;
-    display: flex;
+    /*display: flex; */
     align-items: center;
     justify-content: space-between;
+	text-align: center;
     flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
 }
 
 h1 {
+	font-size: 50px;
     color: #00bcd4;
     margin: 10px 0; /* Adjust the top and bottom margin as needed */
+	text-align: center;
 }
 
 section {
     padding: 40px;
+	flex-wrap: wrap;
+}
+
+section figure {
+    flex: 0 0 calc(70.33% - 20px); /* Adjust the width as needed; 20px is the total margin */
+    margin: 10px; /* Add some margin between figures */
+    text-align: center; /* Center-align content within each figure */
+}
+
+section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+	width: 50%;
+}
+
+section figcaption {
+    margin-top: 10px; /* Add space between image and caption */
+    font-size: 16px; /* Adjust font size as needed */
+    color: #fff; /* Set the text color */
 }
 
 h2 {
+	font-size: 38px;
+	text-align: left;
     color: white;
     margin-bottom: 20px;
+}
+
+h3 {
+	font-size: 27px;
+	text-align: center;
+    color: white;
+    margin-bottom: 10px;
 }
 
 footer {
     background-color: #333;
     padding: 20px;
+    text-align: center;
 }
 
 p {
-    font-size: 18px;
+    font-size: 25px;
     line-height: 1.2;
 }
 
-.techy-button {
-    background-color: #00bcd4;
-    color: #ffffff;
-    padding: 10px 20px;
-    font-size: 16px;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    margin-top: 20px;
-}
+
 
 ul {
+	font-size: 25;
     display: block;
     list-style-type: disc;
     margin: 0 auto;
@@ -139,6 +180,19 @@ ul {
     #logo-container {
         margin-right: 0; /* Reset the right margin for smaller screens */
     }
+}
+#ContentB {
+    display: none;
+    background-color: #3498db; /* Blue color */
+    color: #fff; /* White text */
+    padding: 10px;
+    margin-top: 10px; /* Adjust margin as needed */
+    border-radius: 5px;
+}
+
+#ContentB {
+	margin-bottom: 10px;
+    font-size: 16px;
 }
 #Content1 {
     display: none;
@@ -210,4 +264,90 @@ ul {
 #Content3 h2 
 {
 	text-align: left;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px;
+}
+
+.container div {
+    height: 150px;
+    
+}
+
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* Slideshow container */
+#slider-container {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: auto; /* Center the container horizontally */
+    overflow: hidden;
+    position: relative;
+}
+
+.mySlides {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin: auto; /* Add this for centering */
+    
+}
+.mySlides img {
+    width: 100%;
+    text-align: center;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 85%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.5); /* Added background color */
+}
+
+
+.prev {
+    left: 25%;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 25%;
+    border-radius: 3px 0 0 3px;
+}
+
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
 }
