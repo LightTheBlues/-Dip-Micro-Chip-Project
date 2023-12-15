@@ -1,6 +1,6 @@
 /*
  * File:   newmainXC16.c
- * Author: Zhili
+ * Author: Zhi Yong L. (Leo) & Bryan M.
  *
  * Created on November 27, 2023, 8:22 PM
  */
