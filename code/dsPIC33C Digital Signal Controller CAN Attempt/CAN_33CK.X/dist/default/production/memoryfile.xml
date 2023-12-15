@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <executable name="dist/default/production/CAN_33CK.X.production.elf">
+    <memory name="data">
+      <units>bytes</units>
+      <length>126976</length>
+      <used>668</used>
+      <free>126308</free>
+    </memory>
+    <memory name="program">
+      <units>bytes</units>
+      <length>1080192</length>
+      <used>8478</used>
+      <free>1071714</free>
+    </memory>
+  </executable>
+</project>
