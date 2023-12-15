@@ -1,1 +1,3 @@
-
+This was our attempt at implementing the CAN firmware 
+onto the dsPIC33CK TOUCH CAN-LIN CURIOSITY BOARD. It is 
+not in a functioning state. 
