@@ -36,3 +36,6 @@ Each board will be able to detect when a message on the bus as been corrupted up
 
 The peripherals present on both boards will allow user interaction to change how messages are displayed on the external computer. Interactable peripherals include switches, temperature sensors, potentiometers, LEDs, and touch pads.
 
+> Disclaimer:
+>
+> Not all functions were able to be provided by the end of the term.
